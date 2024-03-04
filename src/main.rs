@@ -61,7 +61,7 @@ fn print_utils(window: &ApplicationWindow) -> Box {
     // add the button to the box
     box_var.append(&button);
 
-    box_var.append(&Label::new(Some("Hai selezionato il file: {file_path}")));
+    box_var.append(&Label::new(Some("Hai selezionato il file: {file_path}"))); // vorrei che questa stringa spuntasse solo dopo aver selezionato il file
 
     let box_aux = Box::new(Orientation::Horizontal, 10);
     let subtitle = Label::new(None);
