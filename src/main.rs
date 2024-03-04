@@ -1,3 +1,4 @@
+use gtk::glib::property::PropertyGet;
 use gtk::{prelude::*, Align, Box, Button, FileChooserAction, FileChooserDialog, Label, Orientation, ResponseType, Stack, StackSidebar};
 use gtk::{glib, Application, ApplicationWindow};
 
@@ -73,12 +74,17 @@ fn print_utils(window: &ApplicationWindow) -> Box {
     // Add a combo box
     let combo_box = gtk::ComboBoxText::new();
     // add 3 items to the combo box
-    combo_box.append_text("Aula 3");
     combo_box.append_text("Aula 4");
+    combo_box.append_text("Aula 3");
     combo_box.append_text("Corridoio Piano Terra");
+    combo_box.set_active(Some(0)); // aula 4 di default
+
+
+
 
     let seleziona_stampante = Label::new(Some("Seleziona la stampante:"));
     let box2 = Box::new(Orientation::Horizontal, 10);
+
 
     // put the combo box to the right of the label
     box2.append(&seleziona_stampante);
@@ -86,6 +92,8 @@ fn print_utils(window: &ApplicationWindow) -> Box {
 
     let fronte_retro = gtk::Switch::new();
     let fronte_retro_label = Label::new(Some("\tFronte retro")); // dovrei mettere Aling::End, ma non funziona
+    fronte_retro.set_active(true);
+
 
     box2.append(&fronte_retro_label);
     box2.append(&fronte_retro);
