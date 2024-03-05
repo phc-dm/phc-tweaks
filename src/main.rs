@@ -1,5 +1,4 @@
-use gtk::glib::property::PropertyGet;
-use gtk::{prelude::*, Align, Box, Button, FileChooserAction, FileChooserDialog, Label, Orientation, ResponseType, Stack, StackSidebar};
+use gtk::{prelude::*, Box, Button, FileChooserAction, FileChooserDialog, Label, Orientation, ResponseType, Stack, StackSidebar};
 use gtk::{glib, Application, ApplicationWindow};
 
 const APP_ID: &str = "org.gtk_rs.HelloWorld2";
@@ -51,6 +50,17 @@ fn print_utils(window: &ApplicationWindow) -> Box {
 
         // if file_chooser.response(ResponseType::Ok) == ResponseType::Ok {
         //     let filename = file_chooser.filename(); }
+
+        file_chooser.connect_response(move |fcd: &FileChooserDialog, response: ResponseType| {
+            if response == ResponseType::Ok {
+                let file = fcd.file().expect("Couldn't get file");
+                let filename = file.path().expect("Couldn't get file path");
+
+                println!("Filename: {:?}", filename);
+            }
+
+            fcd.close();
+        });
 
         file_chooser.show();
 
