@@ -1,4 +1,4 @@
-use gtk::{prelude::*, Box, Button, FileChooserAction, FileChooserDialog, Label, Orientation, ResponseType, Stack, StackSidebar};
+use gtk::{prelude::*, Box, Button, FileChooserAction, FileChooserDialog, Label, Orientation, ResponseType, SpinButton, Stack, StackSidebar};
 use gtk::{glib, Application, ApplicationWindow};
 
 const APP_ID: &str = "org.gtk_rs.HelloWorld2";
@@ -63,7 +63,6 @@ fn print_utils(window: &ApplicationWindow) -> Box {
         });
 
         file_chooser.show();
-
     }));
 
 
@@ -89,12 +88,8 @@ fn print_utils(window: &ApplicationWindow) -> Box {
     combo_box.append_text("Corridoio Piano Terra");
     combo_box.set_active(Some(0)); // aula 4 di default
 
-
-
-
     let seleziona_stampante = Label::new(Some("Seleziona la stampante:"));
     let box2 = Box::new(Orientation::Horizontal, 10);
-
 
     // put the combo box to the right of the label
     box2.append(&seleziona_stampante);
@@ -104,11 +99,26 @@ fn print_utils(window: &ApplicationWindow) -> Box {
     let fronte_retro_label = Label::new(Some("\tFronte retro")); // dovrei mettere Aling::End, ma non funziona
     fronte_retro.set_active(true);
 
-
     box2.append(&fronte_retro_label);
     box2.append(&fronte_retro);
 
     box_var.append(&box2);
+
+    let number_of_copies_box = Box::new(Orientation::Horizontal, 10);
+    let number_of_copies_label = Label::new(Some("Numero di copie:"));
+    let number_of_copies_entry = SpinButton::with_range(1.0, 1500.0, 1.0);
+    let stupid_bug_note = Label::new(Some("Abbiamo risolto il problema che se mandi n copie, ne vengono mandate n al quadrato!"));
+
+    number_of_copies_entry.connect_changed(|spin_button| {
+        spin_button.value_as_int(); // forse meglio mettere una variabile che salva il valore per dopo, to do
+    });
+
+
+    number_of_copies_box.append(&number_of_copies_label);
+    number_of_copies_box.append(&number_of_copies_entry);
+    number_of_copies_box.append(&stupid_bug_note);
+
+    box_var.append(&number_of_copies_box);
 
     box_var
 }
